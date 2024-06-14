@@ -2,6 +2,12 @@
 
 Боты умеют отвечать на заготовленные фразы и вопросы из DialogFlow. Можете создать проект и тренировать по [ссылке](https://cloud.google.com/dialogflow/es/docs/quick/setup).
 
+Как работает в Telegram:
+https://github.com/DamirBakty/dialog_flow_bots/assets/79716704/1721df64-718c-4501-bb15-70defa8fab9b
+
+Как работает в VK:
+[vk.bot.webm](https://github.com/DamirBakty/dialog_flow_bots/assets/79716704/eeb6bbc1-cd36-4ba1-9cfa-b5b229df834d)
+
 ## Как запустить
 
 * Скачайте код
@@ -13,7 +19,10 @@
 $ pip install -r requirements.txt
 ```
 
-VK_BOT_TOKEN=
+
+
+
+
 PATH_TO_QUESTIONS=
 * Создайте .env файл и скопируйте содержимое из .env.example
 * Поменяйте данные под свой проект
