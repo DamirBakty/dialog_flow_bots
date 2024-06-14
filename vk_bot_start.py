@@ -34,7 +34,8 @@ def main():
                 path_to_credentials=path_to_credentials,
                 text=event.text
             )
-            echo(event, vk_api, message)
+            if message:
+                echo(event, vk_api, message)
 
 
 if __name__ == '__main__':
