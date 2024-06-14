@@ -3,10 +3,14 @@
 Боты умеют отвечать на заготовленные фразы и вопросы из DialogFlow. Можете создать проект и тренировать по [ссылке](https://cloud.google.com/dialogflow/es/docs/quick/setup).
 
 Как работает в Telegram:
-https://github.com/DamirBakty/dialog_flow_bots/assets/79716704/1721df64-718c-4501-bb15-70defa8fab9b
+![tg](https://github.com/DamirBakty/dialog_flow_bots/assets/79716704/cf272c28-5241-46fb-b0ae-e4ca4fb7ab46)
+
+
 
 Как работает в VK:
-[vk.bot.webm](https://github.com/DamirBakty/dialog_flow_bots/assets/79716704/eeb6bbc1-cd36-4ba1-9cfa-b5b229df834d)
+![vk](https://github.com/DamirBakty/dialog_flow_bots/assets/79716704/38b46c22-3eb0-476f-b668-d89b19830aeb)
+
+
 
 ## Как запустить
 
