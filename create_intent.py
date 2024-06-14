@@ -5,9 +5,8 @@ from environs import Env
 from google.oauth2 import service_account
 
 
-def create_intent(project_id, display_name, training_phrases_parts, message_texts):
+def create_intent(project_id, display_name, training_phrases_parts, message_texts, path_to_credentials):
     from google.cloud import dialogflow
-    path_to_credentials = '/home/damir/Downloads/cred.json'
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path_to_credentials
 
@@ -42,8 +41,10 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 env = Env()
 env.read_env()
 project_id = env.str('DIALOGFLOW_PROJECT_ID')
+path_to_questions = env.str('PATH_TO_QUESTIONS')
+path_to_credentials = env.str('PATH_TO_CREDENTIALS')
 
-with open('/home/damir/Downloads/questions.json', 'r') as file:
+with open(path_to_questions, 'r') as file:
     intents = json.load(file)
     for intent in intents:
         questions = intents[intent]['questions']
@@ -52,5 +53,6 @@ with open('/home/damir/Downloads/questions.json', 'r') as file:
             project_id,
             intent,
             questions,
-            answers
+            answers,
+            path_to_credentials
         )
