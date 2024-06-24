@@ -23,11 +23,7 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
 
-def help_command(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Help!')
-
-
-def echo(update: Update, context: CallbackContext) -> None:
+def reply_message(update: Update, context: CallbackContext) -> None:
     try:
         user = update.effective_user
         user_id = user.id
@@ -35,7 +31,7 @@ def echo(update: Update, context: CallbackContext) -> None:
         dialog_flow_project_id = context.bot_data.get('dialog_flow_project_id')
         path_to_credentials = context.bot_data.get('path_to_credentials')
 
-        reply_message = detect_intent_texts(
+        reply_message, is_fallback = detect_intent_texts(
             project_id=dialog_flow_project_id,
             session_id=user_id,
             text=user_message,
@@ -51,13 +47,13 @@ def echo(update: Update, context: CallbackContext) -> None:
 def main() -> None:
     env = Env()
     env.read_env()
-    chat_id = env.str('CHAT_ID')
+    tg_chat_id = env.str('TG_CHAT_ID')
     tg_bot_token = env.str('TG_BOT_TOKEN')
     dialog_flow_project_id = env.str('DIALOGFLOW_PROJECT_ID')
     path_to_credentials = env.str('PATH_TO_CREDENTIALS')
 
     tg_bot = Bot(token=tg_bot_token)
-    bot_handler = BotHandler(tg_bot, chat_id)
+    bot_handler = BotHandler(tg_bot, tg_chat_id)
     logger.addHandler(bot_handler)
 
     updater = Updater(tg_bot_token)
@@ -67,9 +63,8 @@ def main() -> None:
     dispatcher.bot_data['path_to_credentials'] = path_to_credentials
 
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
 
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, reply_message))
 
     updater.start_polling()
 

@@ -2,12 +2,11 @@ import json
 import os
 
 from environs import Env
+from google.cloud import dialogflow
 from google.oauth2 import service_account
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts, path_to_credentials):
-    from google.cloud import dialogflow
-
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path_to_credentials
 
     credentials = service_account.Credentials.from_service_account_file(
@@ -38,21 +37,26 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     print("Intent created: {}".format(response))
 
 
-env = Env()
-env.read_env()
-project_id = env.str('DIALOGFLOW_PROJECT_ID')
-path_to_questions = env.str('PATH_TO_QUESTIONS')
-path_to_credentials = env.str('PATH_TO_CREDENTIALS')
+def main():
+    env = Env()
+    env.read_env()
+    project_id = env.str('DIALOGFLOW_PROJECT_ID')
+    path_to_questions = env.str('PATH_TO_QUESTIONS')
+    path_to_credentials = env.str('PATH_TO_CREDENTIALS')
 
-with open(path_to_questions, 'r') as file:
-    intents = json.load(file)
-    for intent in intents:
-        questions = intents[intent]['questions']
-        answers = [intents[intent]['answer']]
+    with open(path_to_questions, 'r') as file:
+        intents = json.load(file)
+    for key, value in intents.items():
+        questions = value['questions']
+        answers = [value['answer']]
         create_intent(
             project_id,
-            intent,
+            key,
             questions,
             answers,
             path_to_credentials
         )
+
+
+if __name__ == '__main__':
+    main()
