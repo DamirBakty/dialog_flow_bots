@@ -7,10 +7,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from handlers.bot_handler import BotHandler
 from handlers.dialog_flow_handler import detect_intent_texts
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
 logger = logging.getLogger(__name__)
 
 
@@ -45,6 +41,10 @@ def reply_message(update: Update, context: CallbackContext) -> None:
 
 
 def main() -> None:
+    logging.basicConfig(
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+    )
+
     env = Env()
     env.read_env()
     tg_chat_id = env.str('TG_CHAT_ID')

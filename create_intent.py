@@ -46,12 +46,12 @@ def main():
 
     with open(path_to_questions, 'r') as file:
         intents = json.load(file)
-    for key, value in intents.items():
-        questions = value['questions']
-        answers = [value['answer']]
+    for intent, phrases in intents.items():
+        questions = phrases['questions']
+        answers = [phrases['answer']]
         create_intent(
             project_id,
-            key,
+            intent,
             questions,
             answers,
             path_to_credentials
